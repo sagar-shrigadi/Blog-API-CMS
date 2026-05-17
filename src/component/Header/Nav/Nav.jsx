@@ -1,23 +1,22 @@
 import { Link, useNavigate } from "react-router";
-import { getUserInfoFromToken } from "../../../Helper/useToken";
 
-export const Nav = ({ token, setToken }) => {
-  // console.log("token", token);
+export const Nav = ({ setToken, user, setUser }) => {
   let navigate = useNavigate();
 
-  const userInfo = getUserInfoFromToken(token);
+  console.log("user from app", user);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);
+    setUser(null);
     navigate("/login");
   };
   return (
     <nav>
-      {userInfo ? (
+      {user ? (
         <ul>
           <li className="flex justify-center items-center gap-2">
-            {userInfo.id}
+            {user.username}
             <button onClick={handleLogout}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

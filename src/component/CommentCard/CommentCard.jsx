@@ -1,15 +1,12 @@
 import { useOutletContext } from "react-router";
 import { DateOptionsWEx, locales } from "../../Helper/DateOptions";
-import { getUserInfoFromToken } from "../../Helper/useToken";
 import { deleteComment } from "../../service/comment/DeleteComment";
 
 export const CommentCard = ({ comment, setRefreshToggle }) => {
-  const { token } = useOutletContext();
+  const { token, user } = useOutletContext();
   // console.log("token value", token);
   const uniqueAnchorName = `--btn-${comment.id}`;
   const uniquePopoverId = `--moreActions-${comment.id}`;
-
-  const userInfo = getUserInfoFromToken(token);
 
   const handleCommentDelete = async (e, commentId) => {
     e.preventDefault();
@@ -38,7 +35,7 @@ export const CommentCard = ({ comment, setRefreshToggle }) => {
             )}
           </p>
         </div>
-        {userInfo?.id === comment.authorId ? (
+        {user?.id === comment.authorId ? (
           <button
             popoverTarget={uniquePopoverId}
             style={{ anchorName: uniqueAnchorName }}
