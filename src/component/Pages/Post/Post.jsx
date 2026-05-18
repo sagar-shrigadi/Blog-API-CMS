@@ -13,6 +13,7 @@ import { DivWrapper } from "../../Forms/DivWrapper";
 import { DateOptionsWIn, locales } from "../../../Helper/DateOptions";
 import { addComment } from "../../../service/comment/AddComment";
 import { usePostById } from "../../../service/post/PostById";
+import { editPublishStatus } from "../../../service/post/editPublishStatus";
 
 export const Post = () => {
   const { postId } = useParams();
@@ -46,6 +47,21 @@ export const Post = () => {
       }
     }
   };
+
+  const postStatusHandleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await editPublishStatus(
+        token,
+        postId,
+        Boolean(post.published),
+      );
+      console.log("response after updating post publish status", response);
+      setRefreshToggle((prev) => !prev);
+    } catch (error) {
+      console.error("Error updating post publish status", error);
+    }
+  };
   if (loading) return <FetchLoading />;
   if (error) return <FetchError />;
 
@@ -56,6 +72,14 @@ export const Post = () => {
         {new Date(post.createdAt).toLocaleDateString(locales, DateOptionsWIn)}
       </p>
       <h1 className="text-4xl text-balance mb-6">{post.title}</h1>
+      <p className="text-lg font-semibold">
+        Status: {post.published ? "Published" : "Not Published"}
+      </p>
+      <form className="text-lg mb-4" onSubmit={postStatusHandleSubmit}>
+        <button className="border mt-4 px-8 py-2">
+          {post.published ? "Unpublish" : "Publish"}
+        </button>
+      </form>
       <p className="text-lg text-pretty">{post.content}</p>
 
       <div className="comments">

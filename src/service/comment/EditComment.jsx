@@ -19,7 +19,6 @@ export const editComment = async (token, commentId, message) => {
     } else {
       const data = await response.json();
       console.log("response after converting to json", data);
-      console.log("Post Comment response", data);
       return data;
     }
   } catch (error) {
