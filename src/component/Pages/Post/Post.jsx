@@ -46,10 +46,6 @@ export const Post = () => {
       }
     }
   };
-  const popoverHandleClose = () => {
-    setMessage(""); // Clears input if user cancels/closes without submitting
-  };
-
   if (loading) return <FetchLoading />;
   if (error) return <FetchError />;
 
@@ -94,7 +90,7 @@ export const Post = () => {
               <button
                 popoverTarget="addCommentForm"
                 popoverTargetAction="hide"
-                onClick={popoverHandleClose}
+                onClick={() => setMessage("")}
                 className="self-end cursor-pointer"
               >
                 <svg
