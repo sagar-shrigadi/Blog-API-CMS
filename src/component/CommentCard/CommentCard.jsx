@@ -35,7 +35,7 @@ export const CommentCard = ({ comment, setRefreshToggle }) => {
             )}
           </p>
         </div>
-        {user?.id === comment.authorId ? (
+        {user?.admin ? (
           <button
             popoverTarget={uniquePopoverId}
             style={{ anchorName: uniqueAnchorName }}

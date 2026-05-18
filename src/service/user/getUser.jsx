@@ -12,19 +12,19 @@ export const getUserById = async (token) => {
 
     if (!response.ok) {
       const status = response.status;
-      console.log("response Status when response is not ok", status);
+      console.error("response Status when response is not ok", status);
 
       switch (status) {
         case "403":
-          console.log("403 forbidden!");
+          console.error("403 forbidden!");
           break;
         case "404":
-          console.log(response.msg);
+          console.error(response.msg);
 
           break;
 
         default:
-          console.log(response.msg);
+          console.error(response.msg);
 
           break;
       }
@@ -36,6 +36,6 @@ export const getUserById = async (token) => {
     );
     return data;
   } catch (error) {
-    console.log("error getting user data using /me/:userId", error);
+    console.error("error getting user data using /me/:userId", error);
   }
 };
