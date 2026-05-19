@@ -1,6 +1,8 @@
+import { baseUrl } from "../baseUrl";
+
 export const deletePostById = async (token, postId) => {
   try {
-    const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+    const response = await fetch(`${baseUrl}/posts/${postId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

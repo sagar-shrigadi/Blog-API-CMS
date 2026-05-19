@@ -1,3 +1,5 @@
+import { baseUrl } from "../baseUrl";
+
 export const editPostById = async (
   token,
   postId,
@@ -6,7 +8,7 @@ export const editPostById = async (
   isPublished,
 ) => {
   try {
-    const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+    const response = await fetch(`${baseUrl}/posts/${postId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

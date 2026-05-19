@@ -1,10 +1,12 @@
+import { baseUrl } from "../baseUrl";
+
 export const editPublishStatus = async (token, postId, currentStatus) => {
   console.log(
     `current status ${currentStatus} || new status ${!currentStatus}`,
   );
 
   try {
-    const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+    const response = await fetch(`${baseUrl}/posts/${postId}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
