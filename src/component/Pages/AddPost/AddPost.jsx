@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DivWrapper } from "../../Forms/DivWrapper";
 import { CreateNewPost } from "../../../service/post/CreateNewPost";
-import { useNavigate, useOutletContext } from "react-router";
+import { useLocation, useNavigate, useOutletContext } from "react-router";
 
 export const AddNewPost = () => {
   const { token } = useOutletContext();
@@ -9,15 +9,23 @@ export const AddNewPost = () => {
   const [content, setContent] = useState("");
   const [isPublished, setIsPublished] = useState(false);
   let navigate = useNavigate();
+  const location = useLocation();
   //   console.log("title: ", title);
   //   console.log("content: ", content);
   //   console.log("isPublished: ", isPublished);
 
   const newPostHandleSubmit = async (e) => {
     e.preventDefault();
-    const response = await CreateNewPost(token, title, content, isPublished);
-    console.log("response new post", response);
-    navigate("/");
+    if (!token) {
+      navigate("/login", {
+        replace: true,
+        state: { from: location.pathname },
+      });
+    } else {
+      const response = await CreateNewPost(token, title, content, isPublished);
+      console.log("response new post", response);
+      navigate("/");
+    }
   };
   return (
     <section className="grow mx-auto mt-8 flex flex-col gap-8 w-full py-1 px-2 lg:text-2xl lg:w-5xl lg:py-2.5">
