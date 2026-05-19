@@ -14,6 +14,7 @@ import { DateOptionsWIn, locales } from "../../../Helper/DateOptions";
 import { addComment } from "../../../service/comment/AddComment";
 import { usePostById } from "../../../service/post/PostById";
 import { editPublishStatus } from "../../../service/post/editPublishStatus";
+import { deletePostById } from "../../../service/post/DeletePostById";
 
 export const Post = () => {
   const { postId } = useParams();
@@ -62,6 +63,17 @@ export const Post = () => {
       console.error("Error updating post publish status", error);
     }
   };
+
+  const postDeleteHandleSubmit = async (e) => {
+    e.preventDefault();
+    if (!window.confirm("are you sure you want to delete this post?")) {
+      return;
+    }
+    const response = await deletePostById(token, postId);
+    if (response) {
+      navigate("/");
+    }
+  };
   if (loading) return <FetchLoading />;
   if (error) return <FetchError />;
 
@@ -71,12 +83,24 @@ export const Post = () => {
       <p className="self-end mb-4">
         {new Date(post.createdAt).toLocaleDateString(locales, DateOptionsWIn)}
       </p>
-      <h1 className="text-4xl text-balance mb-6">{post.title}</h1>
+      <div className="mb-4 flex flex-col gap-4">
+        <h1 className="text-4xl text-balance">{post.title}</h1>
+        <div className="flex justify-cemter items-center gap-6">
+          <button className="border px-6 py-1 text-base cursor-pointer min-w-22">
+            Edit
+          </button>
+          <form onSubmit={postDeleteHandleSubmit}>
+            <button className="border px-6 py-1 text-base cursor-pointer">
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
       <p className="text-lg font-semibold">
         Status: {post.published ? "Published" : "Not Published"}
       </p>
       <form className="text-lg mb-4" onSubmit={postStatusHandleSubmit}>
-        <button className="border mt-4 px-8 py-2">
+        <button className="border mt-2 px-6 py-1">
           {post.published ? "Unpublish" : "Publish"}
         </button>
       </form>
