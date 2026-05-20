@@ -17,7 +17,7 @@ export const Nav = ({ setToken, user, setUser }) => {
         <ul>
           <li className="flex justify-center items-center gap-2">
             {user.username}
-            <button onClick={handleLogout}>
+            <button onClick={handleLogout} className="cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 640 640"

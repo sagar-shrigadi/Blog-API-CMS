@@ -115,7 +115,7 @@ export const Post = () => {
         <h1 className="text-4xl text-balance">{post.title}</h1>
         <div className="flex justify-cemter items-center gap-6">
           <button
-            className="border px-6 py-1 text-base cursor-pointer min-w-22"
+            className="border px-6 py-1 text-base cursor-pointer min-w-22 rounded"
             popoverTarget="editPostForm"
           >
             Edit
@@ -188,7 +188,7 @@ export const Post = () => {
             </form>
           </div>
           <form onSubmit={postDeleteHandleSubmit}>
-            <button className="border px-6 py-1 text-base cursor-pointer">
+            <button className="border px-6 py-1 text-base cursor-pointer rounded">
               Delete
             </button>
           </form>
@@ -198,7 +198,7 @@ export const Post = () => {
         Status: {post.published ? "Published" : "Not Published"}
       </p>
       <form className="text-lg mb-4" onSubmit={postStatusHandleSubmit}>
-        <button className="border mt-2 px-6 py-1">
+        <button className="border mt-2 px-6 py-1 cursor-pointer rounded">
           {post.published ? "Unpublish" : "Publish"}
         </button>
       </form>

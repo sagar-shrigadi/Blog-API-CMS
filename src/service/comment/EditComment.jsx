@@ -1,15 +1,16 @@
-import { baseUrl } from "../baseUrl";
-
 export const editComment = async (token, commentId, message) => {
   try {
-    const response = await fetch(`${baseUrl}/comments/${commentId}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/comments/${commentId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message }),
       },
-      body: JSON.stringify({ message }),
-    });
+    );
     console.log("response from server", response);
 
     if (!response.ok) {

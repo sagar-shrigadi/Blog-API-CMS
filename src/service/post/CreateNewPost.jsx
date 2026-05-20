@@ -1,8 +1,6 @@
-import { baseUrl } from "../baseUrl";
-
 export const CreateNewPost = async (token, title, content, isPublished) => {
   try {
-    const response = await fetch(`${baseUrl}/posts`, {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/posts`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

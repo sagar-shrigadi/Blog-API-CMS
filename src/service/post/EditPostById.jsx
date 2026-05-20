@@ -1,5 +1,3 @@
-import { baseUrl } from "../baseUrl";
-
 export const editPostById = async (
   token,
   postId,
@@ -8,14 +6,17 @@ export const editPostById = async (
   isPublished,
 ) => {
   try {
-    const response = await fetch(`${baseUrl}/posts/${postId}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/posts/${postId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ title, content, isPublished }),
       },
-      body: JSON.stringify({ title, content, isPublished }),
-    });
+    );
     if (!response.ok) {
       console.error("edit post error", response.status);
       throw Error(`edit post error ${response.status}`);

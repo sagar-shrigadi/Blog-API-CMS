@@ -1,19 +1,20 @@
-import { baseUrl } from "../baseUrl";
-
 export const editPublishStatus = async (token, postId, currentStatus) => {
   console.log(
     `current status ${currentStatus} || new status ${!currentStatus}`,
   );
 
   try {
-    const response = await fetch(`${baseUrl}/posts/${postId}`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/posts/${postId}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ newStatus: !currentStatus }),
       },
-      body: JSON.stringify({ newStatus: !currentStatus }),
-    });
+    );
 
     if (!response.ok) {
       console.error("response error", response.status);

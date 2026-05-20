@@ -1,13 +1,14 @@
-import { baseUrl } from "../baseUrl";
-
 export const deleteComment = async (token, commentId) => {
   try {
-    const response = await fetch(`${baseUrl}/comments/${commentId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/comments/${commentId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    });
+    );
     console.log("response from server", response);
     if (!response.ok) {
       console.log("response error", response.status);
