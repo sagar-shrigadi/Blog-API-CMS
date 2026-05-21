@@ -1,16 +1,43 @@
-# React + Vite
+# Blog Admin Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- The administrative dashboard for the [Blog-API](https://github.com/sagar-shrigadi/Blog-API). 
+- It allows authors and adminis to log in, manage the lifecycle of blog posts (drafting, editing, publishing), and moderate user comments.
 
-Currently, two official plugins are available:
+## 🔗 Live
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Live (client) site can be found [here](https://blog-api-client.pages.dev/)
+- The source code for blog-api (REST API) can be found [here](https://github.com/sagar-shrigadi/Blog-API).
+- The source code for blog-api-client can be found [here](https://github.com/sagar-shrigadi/Blog-API-Client).
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Content Management:** Create new blog posts and edit existing entries.
+- **Publishing Controls:** Toggle visibility with instant Publish/Unpublish controls.
+- **Comment Moderation:** Edit or Delete any comments. 
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend:** React.js
+- **Styling:** Tailwind CSS
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the repository
+```bash
+git clone https://github.com
+cd blog-admin
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Configuration
+- Create a `.env` file in the root directory and add the variable from .env.example file.
+
+
+### 4. Start the Application
+```bash
+npm run dev
+```
