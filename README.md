@@ -1,6 +1,6 @@
 # Blog Admin Dashboard
 
-- The administrative dashboard for the [Blog-API](https://github.com/sagar-shrigadi/Blog-API). 
+- The administrative dashboard for the [Blog-API](https://github.com/sagar-shrigadi/Blog-API).
 - It allows authors and adminis to log in, manage the lifecycle of blog posts (drafting, editing, publishing), and moderate user comments.
 
 ## 🔗 Live
@@ -13,7 +13,7 @@
 
 - **Content Management:** Create new blog posts and edit existing entries.
 - **Publishing Controls:** Toggle visibility with instant Publish/Unpublish controls.
-- **Comment Moderation:** Edit or Delete any comments. 
+- **Comment Moderation:** Edit or Delete any comments.
 
 ## 🛠️ Tech Stack
 
@@ -23,21 +23,24 @@
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the repository
+
 ```bash
-git clone https://github.com
+git@github.com:sagar-shrigadi/Blog-API-CMS.git
 cd blog-admin
 ```
 
 ### 2. Install dependencies
+
 ```bash
 npm install
 ```
 
 ### 3. Configuration
+
 - Create a `.env` file in the root directory and add the variable from .env.example file.
 
-
 ### 4. Start the Application
+
 ```bash
 npm run dev
 ```
