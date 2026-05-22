@@ -12,7 +12,7 @@ export const PostCard = ({ post }) => {
         Status: {post.published ? "Published" : "Not Published"}
       </p>
       <article
-        className="text-lg text-pretty max-w-[35ch] line-clamp-5 prose lg:prose-xl mx-auto mt-8"
+        className="text-lg text-pretty max-w-[35ch] line-clamp-5 prose prose-headings:my-2 lg:prose-xl mx-auto"
         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
       ></article>
       <div className="mt-auto self-stretch flex justify-between items-center text-lg">

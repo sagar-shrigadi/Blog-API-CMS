@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import {
+  Link,
   useLocation,
   useNavigate,
   useOutletContext,
@@ -16,7 +17,6 @@ import { addComment } from "../../../service/comment/AddComment";
 import { usePostById } from "../../../service/post/PostById";
 import { editPublishStatus } from "../../../service/post/editPublishStatus";
 import { deletePostById } from "../../../service/post/DeletePostById";
-import { editPostById } from "../../../service/post/EditPostById";
 
 export const Post = () => {
   const { postId } = useParams();
@@ -25,7 +25,6 @@ export const Post = () => {
   const { token } = useOutletContext();
   const [message, setMessage] = useState();
   const popoverRef = useRef(null);
-  const editPostPopoverRef = useRef(null);
   let navigate = useNavigate();
   const location = useLocation();
 
@@ -78,31 +77,6 @@ export const Post = () => {
     }
   };
 
-  const postEditHandleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (!window.confirm("Are you sure you want to edit this post?")) {
-        return;
-      }
-
-      const formData = new FormData(e.currentTarget);
-
-      const title = formData.get("title");
-      const content = formData.get("content");
-      const isPublished = formData.get("isPublished") === "on";
-
-      console.log("values from form: ", { title, content, isPublished });
-
-      await editPostById(token, postId, title, content, isPublished);
-      if (editPostPopoverRef.current) {
-        editPostPopoverRef.current.hidePopover();
-      }
-      setRefreshToggle((prev) => !prev);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   if (loading) return <FetchLoading />;
   if (error) return <FetchError />;
 
@@ -115,79 +89,12 @@ export const Post = () => {
       <div className="mt-2 mb-4 flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
         <h1 className="text-4xl text-balance font-bold">{post.title}</h1>
         <div className="flex justify-cemter items-center gap-6">
-          <button
+          <Link
+            to={`/posts/${post?.id}/edit`}
             className="border px-6 py-1 text-base cursor-pointer min-w-22 rounded"
-            popoverTarget="editPostForm"
           >
             Edit
-          </button>
-          <div
-            popover="auto"
-            id="editPostForm"
-            className="m-auto min-w-full px-4 py-6 min-h-2/3 bg-amber-200"
-            ref={editPostPopoverRef}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-3xl">Edit Post</h2>
-              <button
-                popoverTarget="editPostForm"
-                popoverTargetAction="hide"
-                className="text-lg border px-4 py-1"
-              >
-                Close
-              </button>
-            </div>
-            <form
-              onSubmit={postEditHandleSubmit}
-              className="flex flex-col justify-center gap-4"
-            >
-              <DivWrapper>
-                <label htmlFor="title" className="text-2xl">
-                  Title:{" "}
-                </label>
-                <input
-                  type="text"
-                  name="title"
-                  id="title"
-                  placeholder="Post Title"
-                  className="border px-2 py-1"
-                  defaultValue={post?.title}
-                />
-              </DivWrapper>
-              <DivWrapper>
-                <label htmlFor="content" className="text-2xl">
-                  Content:{" "}
-                </label>
-                <textarea
-                  name="content"
-                  id="content"
-                  cols="3"
-                  rows="8"
-                  className="border px-2 py-1"
-                  placeholder="Post Content"
-                  defaultValue={post?.content}
-                ></textarea>
-              </DivWrapper>
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  id="isPublished"
-                  name="isPublished"
-                  className="border rounded-full cursor-pointer w-5"
-                  defaultChecked={post?.published}
-                />
-                <label
-                  htmlFor="isPublished"
-                  className="cursor-pointer tracking-wide text-xl"
-                >
-                  Publish
-                </label>
-              </div>
-              <button className="border px-6 py-1 text-lg cursor-pointer">
-                Edit
-              </button>
-            </form>
-          </div>
+          </Link>
           <form onSubmit={postDeleteHandleSubmit}>
             <button className="border px-6 py-1 text-base cursor-pointer rounded">
               Delete
@@ -211,7 +118,7 @@ export const Post = () => {
       we use the dangerouslySetInnerHTML attribute and once again just in case, use DOMPurify to sanitize content before serving 
        */}
       <article
-        className="text-lg text-pretty prose lg:prose-xl mx-auto mt-8"
+        className="text-lg text-pretty prose prose-headings:mt-0 lg:prose-xl mx-auto mt-4"
         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
       ></article>
 
