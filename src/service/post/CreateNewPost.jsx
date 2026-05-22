@@ -12,7 +12,7 @@ export const CreateNewPost = async (token, title, content, isPublished) => {
 
     if (!response.ok) {
       console.error("new post error", response.status);
-      throw Error(`new post error ${response.status}`);
+      throw new Error(`new post error ${response.status}`);
     } else {
       const data = await response.json();
       console.log("new post after converting to json", data);
@@ -20,5 +20,6 @@ export const CreateNewPost = async (token, title, content, isPublished) => {
     }
   } catch (error) {
     console.error("catch block new post", error);
+    throw error;
   }
 };

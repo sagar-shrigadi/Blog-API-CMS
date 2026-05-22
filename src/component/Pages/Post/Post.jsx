@@ -5,6 +5,7 @@ import {
   useOutletContext,
   useParams,
 } from "react-router";
+import DOMPurify from "dompurify";
 import { FetchLoading } from "../../FetchLoading/FetchLoading";
 import { FetchError } from "../../FetchError/FetchError";
 import { BackBtn } from "../../BackBtn/BackBtn";
@@ -111,8 +112,8 @@ export const Post = () => {
       <p className="self-end mb-4">
         {new Date(post.createdAt).toLocaleDateString(locales, DateOptionsWIn)}
       </p>
-      <div className="mb-4 flex flex-col gap-4">
-        <h1 className="text-4xl text-balance">{post.title}</h1>
+      <div className="mt-2 mb-4 flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
+        <h1 className="text-4xl text-balance font-bold">{post.title}</h1>
         <div className="flex justify-cemter items-center gap-6">
           <button
             className="border px-6 py-1 text-base cursor-pointer min-w-22 rounded"
@@ -194,15 +195,25 @@ export const Post = () => {
           </form>
         </div>
       </div>
-      <p className="text-lg font-semibold">
-        Status: {post.published ? "Published" : "Not Published"}
-      </p>
-      <form className="text-lg mb-4" onSubmit={postStatusHandleSubmit}>
-        <button className="border mt-2 px-6 py-1 cursor-pointer rounded">
-          {post.published ? "Unpublish" : "Publish"}
-        </button>
-      </form>
-      <p className="text-lg text-pretty">{post.content}</p>
+      <div className="my-4 flex flex-col gap-2">
+        <p className="text-lg font-semibold">
+          Status: {post.published ? "Published" : "Not Published"}
+        </p>
+        <form className="text-lg" onSubmit={postStatusHandleSubmit}>
+          <button className="border mt-2 px-6 py-1 cursor-pointer rounded">
+            {post.published ? "Unpublish" : "Publish"}
+          </button>
+        </form>
+      </div>
+      {/*
+      since react escapes string by default,
+      thus to show the actual html stored form tinyMCE editor as it is, 
+      we use the dangerouslySetInnerHTML attribute and once again just in case, use DOMPurify to sanitize content before serving 
+       */}
+      <article
+        className="text-lg text-pretty prose lg:prose-xl mx-auto mt-8"
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
+      ></article>
 
       <div className="comments">
         <div className="flex justify-between items-center mt-10 mb-8 border-b-2">
