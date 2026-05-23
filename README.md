@@ -12,6 +12,7 @@
 ## 🚀 Features
 
 - **Content Management:** Create new blog posts and edit existing entries.
+- **Rich Text Editing:** Integrated [TinyMCE](https://www.tiny.cloud/docs/tinymce/latest/) Editor to provide a powerful, feature-rich content creation and editing experience.
 - **Publishing Controls:** Toggle visibility with instant Publish/Unpublish controls.
 - **Comment Moderation:** Edit or Delete any comments.
 
